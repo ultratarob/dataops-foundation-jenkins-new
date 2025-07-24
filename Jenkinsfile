@@ -13,7 +13,7 @@ pipeline {
         VIRTUAL_ENV = 'venv'
         
         // Project paths
-        DATA_FILE = '../dataops-foundation-jenkins/data/LoanStats_web_small.csv'
+        DATA_FILE = 'data/LoanStats_web_small.csv'
         
         // Pipeline configuration
         MAX_NULL_PERCENTAGE = '30'
@@ -30,9 +30,6 @@ pipeline {
         
         // Timestamps in console output
         timestamps()
-        
-        // Enable colors
-        ansiColor('xterm')
     }
     
     stages {
