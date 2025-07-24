@@ -10,7 +10,7 @@ import numpy as np
 import sys
 import os
 from datetime import datetime
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -153,7 +153,7 @@ def deploy_to_database(fact_table, dim_tables):
         
         # Test connection
         with engine.connect() as connection:
-            result = connection.execute("SELECT 1 as test")
+            result = connection.execute(text("SELECT 1 as test"))
             if result.fetchone()[0] == 1:
                 print("   ✅ Database connection successful")
         
@@ -174,7 +174,7 @@ def deploy_to_database(fact_table, dim_tables):
         print("\n🔍 Verifying deployment...")
         with engine.connect() as connection:
             for table_name in list(dim_tables.keys()) + ['loans_fact']:
-                count_result = connection.execute(f"SELECT COUNT(*) FROM {table_name}")
+                count_result = connection.execute(text(f"SELECT COUNT(*) FROM {table_name}"))
                 count = count_result.fetchone()[0]
                 print(f"   📊 {table_name}: {count:,} records in database")
         
