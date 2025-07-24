@@ -40,7 +40,8 @@ dataops-foundation-jenkins-new/
 
 ### 3. 📤 Continuous Deployment
 - ส่ง Fact Table และ Dimension Tables ไปยัง MSSQL Database
-- เฉพาะ branch `main` หรือเมื่อมี parameter `DEPLOY_TO_DB=true`
+- รันทุกครั้งเมื่อ tests ผ่านทั้งหมด
+- Database: `mssql.minddatatech.com/TestDB`
 
 ## 🚀 Quick Start
 
@@ -93,9 +94,17 @@ Manage Jenkins → Manage Credentials → Add Credentials
 - Secret: Passw0rd123456
 ```
 
-### 3. Pipeline Parameters (Optional)
+### 3. Database Configuration
 ```
-DEPLOY_TO_DB: Boolean (default: false)
+Server: mssql.minddatatech.com
+Database: TestDB  
+Username: SA
+Password: Passw0rd123456 (from Jenkins credentials)
+```
+
+### 4. Pipeline Parameters (Optional)
+```
+DEPLOY_TO_DB: Boolean (default: false) - ไม่จำเป็นแล้ว เพราะ deploy ทุกครั้ง
 ```
 
 ## 📊 ETL Functions

@@ -182,14 +182,7 @@ print(f'✅ Data file readable: {len(df.columns)} columns')
         
         stage('📤 Deploy to Database') {
             when {
-                allOf {
-                    expression { currentBuild.result != 'FAILURE' }
-                    anyOf {
-                        branch 'main'
-                        branch 'master'
-                        expression { params.DEPLOY_TO_DB == true }
-                    }
-                }
+                expression { currentBuild.result != 'FAILURE' }
             }
             steps {
                 script {
@@ -232,7 +225,7 @@ print(f'✅ Data file readable: {len(df.columns)} columns')
 🎉 ETL Pipeline succeeded!
 ✅ All tests passed
 ✅ ETL processing completed
-${env.BRANCH_NAME == 'main' ? '✅ Deployed to database' : 'ℹ️  Deployment skipped (not main branch)'}
+✅ Deployed to MSSQL database
 
 Build: ${BUILD_NUMBER}
 Duration: ${currentBuild.durationString}

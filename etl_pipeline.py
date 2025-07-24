@@ -194,7 +194,7 @@ def main():
     print("="*80)
     
     # Configuration
-    data_file = 'data/LoanStats_web_small.csv'
+    data_file = 'data/LoanStats_web_small.csv'  # Path in Jenkins workspace
     
     # Check if running in deployment mode
     deploy_mode = '--deploy' in sys.argv
