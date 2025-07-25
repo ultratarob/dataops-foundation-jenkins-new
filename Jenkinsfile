@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Database configuration
-        DB_SERVER = 'mssql.minddatatech.com'
+        DB_SERVER = '34.27.134.91'
         DB_NAME = 'TestDB'
         DB_USERNAME = 'SA'
         DB_PASSWORD = credentials('mssql-password')  // ต้องสร้างใน Jenkins credentials
@@ -56,6 +56,9 @@ pipeline {
         }
         
         stage('🐍 Python Environment') {
+            agent {
+                label "python-agent"
+            }
             steps {
                 script {
                     echo "Setting up Python environment..."
@@ -88,6 +91,9 @@ pipeline {
         stage('🧪 Unit Tests') {
             parallel {
                 stage('Test: guess_column_types') {
+                    agent {
+                        label "python-agent"
+                    }
                     steps {
                         script {
                             echo "Testing guess_column_types function..."
@@ -101,6 +107,9 @@ pipeline {
                 }
                 
                 stage('Test: filter_issue_date_range') {
+                    agent {
+                        label "python-agent"
+                    }
                     steps {
                         script {
                             echo "Testing filter_issue_date_range function..."
@@ -114,6 +123,9 @@ pipeline {
                 }
                 
                 stage('Test: clean_missing_values') {
+                    agent {
+                        label "python-agent"
+                    }
                     steps {
                         script {
                             echo "Testing clean_missing_values function..."
@@ -129,6 +141,9 @@ pipeline {
         }
         
         stage('🔍 ETL Validation') {
+            agent {
+                        label "python-agent"
+                    }
             when {
                 expression { currentBuild.result != 'FAILURE' }
             }
@@ -163,6 +178,9 @@ print(f'✅ Data file readable: {len(df.columns)} columns')
         }
         
         stage('🔄 ETL Processing') {
+            agent {
+                        label "python-agent"
+                    }
             when {
                 expression { currentBuild.result != 'FAILURE' }
             }
@@ -181,6 +199,9 @@ print(f'✅ Data file readable: {len(df.columns)} columns')
         }
         
         stage('📤 Deploy to Database') {
+            agent {
+                        label "python-agent"
+                    }
             when {
                 expression { currentBuild.result != 'FAILURE' }
             }
